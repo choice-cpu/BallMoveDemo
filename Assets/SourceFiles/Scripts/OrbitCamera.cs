@@ -1,15 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// 轨道相机：按住左键或右键拖拽旋转视角，滚轮推拉远近。
-/// 相机始终看向 target（本 Demo 里是那个来回运动的球）。
-/// 类名必须与文件名一致（OrbitCamera.cs）。
-/// </summary>
 public class OrbitCamera : MonoBehaviour
 {
-    public Transform target;                  // 环绕目标，留空则使用 pivotPoint
-    public Vector3 pivotPoint = Vector3.zero; // 手动指定的环绕中心
+    public Transform target;
+    public Vector3 pivotPoint = Vector3.zero;
 
     [Header("缩放")]
     public float minDistance = 3f;
@@ -24,7 +19,6 @@ public class OrbitCamera : MonoBehaviour
 
     void Start()
     {
-        // 从场景里摆好的相机位置反解出球坐标，编辑器里怎么摆就从哪里开始
         Vector3 offset = transform.position - GetPivot();
         distance = Mathf.Clamp(offset.magnitude, minDistance, maxDistance);
         if (offset.sqrMagnitude < 0.0001f) offset = Vector3.back;
